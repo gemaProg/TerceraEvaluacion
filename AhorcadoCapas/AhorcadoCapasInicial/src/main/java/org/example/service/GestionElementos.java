@@ -1,6 +1,10 @@
 package org.example.service;
 
 import org.example.common.CategoriaException;
+import org.example.common.Comprobacion;
+import org.example.dao.DaoElementos;
+import org.example.dao.DaoElementosFicheros;
+import org.example.dao.DaoElementosImplementacion;
 import org.example.domain.Categoria;
 import org.example.domain.Elemento;
 
@@ -9,6 +13,15 @@ import java.util.List;
 
 public class GestionElementos implements IGestionElementos{
 
+    private final DaoElementos daoElementos;
+
+
+    public GestionElementos() {
+        this.daoElementos = new DaoElementosImplementacion();
+    }
+    public GestionElementos(DaoElementos daoElementos) {
+        this.daoElementos = daoElementos;
+    }
 
     @Override
     public boolean isEmptyElementosList() {
@@ -21,8 +34,9 @@ public class GestionElementos implements IGestionElementos{
     }
 
     @Override
-    public boolean addElemento(Elemento Elemento) throws CategoriaException {
-        return false;
+    public boolean addElemento(Elemento elemento) throws CategoriaException {
+        Comprobacion.categoriaOk(elemento.getCategoria());
+        return daoElementos.addElemento(elemento);
     }
 
     @Override
@@ -41,7 +55,7 @@ public class GestionElementos implements IGestionElementos{
     }
 
     @Override
-    public List<Elemento> ElementosPorNivel(int nivel) {
+    public List<Elemento> elementosPorNivel(int nivel) {
         return null;
     }
 
@@ -51,7 +65,7 @@ public class GestionElementos implements IGestionElementos{
     }
 
     @Override
-    public List<Elemento> consultaHoteles(boolean ascendente) {
+    public List<Elemento> consultaElementos(boolean ascendente) {
         return null;
     }
 
@@ -62,16 +76,18 @@ public class GestionElementos implements IGestionElementos{
 
     @Override
     public void crearFicheros() throws IOException {
-
+        DaoElementosFicheros.crearFicheros();
     }
 
     @Override
     public boolean cargarFichero() throws IOException {
+        //ver si existe el fichero y si su tamaño refleja que tenga datos y cargar su contenido en RAM
         return false;
     }
 
     @Override
     public boolean escribirFichero() {
+
         return false;
     }
 

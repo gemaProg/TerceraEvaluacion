@@ -15,4 +15,5 @@ public interface DaoElementos {
     public void removeElemento(Elemento elemento) ;
     public boolean isEmptyElementosList() ;
 
+
 }

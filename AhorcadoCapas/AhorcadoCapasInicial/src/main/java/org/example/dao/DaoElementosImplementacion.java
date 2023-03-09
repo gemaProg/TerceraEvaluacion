@@ -13,7 +13,8 @@ public class DaoElementosImplementacion implements DaoElementos {
     }
     @Override
     public boolean addElemento(Elemento elemento) {
-        return false;
+
+        return lista.getListaelementos().add(elemento);
     }
 
     @Override
